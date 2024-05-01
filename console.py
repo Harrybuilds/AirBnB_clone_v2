@@ -122,16 +122,16 @@ class HBNBCommand(cmd.Cmd):
             elif args.split(' ')[0] not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-    
+
             className = args.split(' ')
             if len(className) > 1:
                 new_instance = HBNBCommand.classes[className[0]]()
                 for item in className[1:]:
                     key, value = item.split("=")
                     if value.startswith('"'):
-                        value = '\\' + value 
+                        value.strip('"').replace('_', ' ')
                     if hasattr(new_instance, key):
-                        setattr(new_instance, key, value)            
+                        setattr(new_instance, key, value)
                 storage.new(new_instance)
                 print(new_instance.id)
                 storage.save()
@@ -143,9 +143,6 @@ class HBNBCommand(cmd.Cmd):
                 storage.save()
         except Exception as e:
             print(e)
-       
-       
-        
 
     def help_create(self):
         """ Help information for the create method """
@@ -340,6 +337,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
