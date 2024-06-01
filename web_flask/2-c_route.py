@@ -25,7 +25,7 @@ def handletext(text):
     """ handle  user input """
     if "_" in text:
         text = text.replace("_", " ")
-    return f"{escape(text)}"
+    return f"C {escape(text)}"
 
 
 if __name__ == "__main__":
